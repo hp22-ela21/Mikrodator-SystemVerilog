@@ -14,7 +14,7 @@
 module display
 (
    input logic clock,        /* 50 MHz systemklocka. */
-   input logic reset_s2_n,   /* Synkroniserad inverterand reset-signal. */
+   input logic reset_s2_n,   /* Synkroniserad inverterad reset-signal. */
    input logic enable,       /* Enable-signal, indikerar ifall displayerna är aktiverade. */
    input logic[7:0] op_code, /* Binärkod som indikerar aktuell OP-kod. */
    input logic[7:0] r16,     /* Innehållet i register R16. */
@@ -28,37 +28,37 @@ module display
    /* Inkluderingsdirektiv: */
    import def::*; 
    
-   // Konstanter för siffror på hex-displayerna:
-   localparam OFF    = 7'b1111111;   
-   localparam ZERO   = 7'b1000000;   
-   localparam ONE    = 7'b1111001;   
-   localparam TWO    = 7'b0100100;   
-   localparam THREE  = 7'b0110000;   
-   localparam FOUR   = 7'b0011001;   
-   localparam FIVE   = 7'b0010010;   
-   localparam SIX    = 7'b0000010;   
-   localparam SEVEN  = 7'b1111000;   
-   localparam EIGHT  = 7'b0000000;   
-   localparam NINE   = 7'b0010000;   
-   localparam A      = 7'b0001000;   
-   localparam B      = 7'b0000011;    
-   localparam C      = 7'b1000110;    
-   localparam D      = 7'b0100001;    
-   localparam E      = 7'b0000110;    
-   localparam F      = 7'b0001110;  
-   localparam G      = 7'b0000010;
-   localparam I      = 7'b1111001; 
-   localparam J      = 7'b1110001;     
-   localparam L      = 7'b1000111;
-   localparam M      = 7'b1101010; 
-   localparam N      = 7'b1001000;
-   localparam O      = 7'b1000000;
-   localparam P      = 7'b0001100;  
-   localparam R      = 7'b0101111;     
-   localparam S      = 7'b0010010;  
-   localparam T      = 7'b0000111;  
-   localparam U      = 7'b1000001; 
-   localparam V      = 7'b1100011;
+   /* Binärkoder för siffror och bokstäver till 7-segmentsdisplayer: */
+   localparam OFF   = 7'b1111111; /* Släcker display. */   
+   localparam ZERO  = 7'b1000000; /* Binärkod för heltalet 0. */
+   localparam ONE   = 7'b1111001; /* Binärkod för heltalet 1. */
+   localparam TWO   = 7'b0100100; /* Binärkod för heltalet 2. */
+   localparam THREE = 7'b0110000; /* Binärkod för heltalet 3. */  
+   localparam FOUR  = 7'b0011001; /* Binärkod för heltalet 4. */  
+   localparam FIVE  = 7'b0010010; /* Binärkod för heltalet 5. */   
+   localparam SIX   = 7'b0000010; /* Binärkod för heltalet 6. */ 
+   localparam SEVEN = 7'b1111000; /* Binärkod för heltalet 7. */  
+   localparam EIGHT = 7'b0000000; /* Binärkod för heltalet 8. */ 
+   localparam NINE  = 7'b0010000; /* Binärkod för heltalet 9. */   
+   localparam A     = 7'b0001000; /* Binärkod för bokstaven A. */  
+   localparam B     = 7'b0000011; /* Binärkod för bokstaven B. */    
+   localparam C     = 7'b1000110; /* Binärkod för bokstaven C. */  
+   localparam D     = 7'b0100001; /* Binärkod för bokstaven D. */  
+   localparam E     = 7'b0000110; /* Binärkod för bokstaven E. */   
+   localparam F     = 7'b0001110; /* Binärkod för bokstaven F. */ 
+   localparam G     = 7'b0000010; /* Binärkod för bokstaven G. */ 
+   localparam I     = 7'b1111001; /* Binärkod för bokstaven I. */ 
+   localparam J     = 7'b1110001; /* Binärkod för bokstaven J. */ 
+   localparam L     = 7'b1000111; /* Binärkod för bokstaven L. */ 
+   localparam M     = 7'b1101010; /* Binärkod för bokstaven M. */ 
+   localparam N     = 7'b1001000; /* Binärkod för bokstaven N. */ 
+   localparam O     = 7'b1000000; /* Binärkod för bokstaven O. */ 
+   localparam P     = 7'b0001100; /* Binärkod för bokstaven P. */ 
+   localparam R     = 7'b0101111; /* Binärkod för bokstaven R. */ 
+   localparam S     = 7'b0010010; /* Binärkod för bokstaven S. */ 
+   localparam T     = 7'b0000111; /* Binärkod för bokstaven T. */ 
+   localparam U     = 7'b1000001; /* Binärkod för bokstaven U. */ 
+   localparam V     = 7'b1100011; /* Binärkod för bokstaven V. */ 
    
    /***********************************************************************************************
    * DISPLAY_OP_CODE: Skriver ut aktuell OP-kod på 7-segmentsdisplayer hex[5:3]. Vid reset
@@ -260,8 +260,13 @@ module display
                   hex5 <= R;
                   hex4 <= E;
                   hex3 <= T;
-               end         
+               end  
                
+               default: begin    
+                  hex5 <= OFF;
+                  hex4 <= OFF;
+                  hex3 <= OFF;
+               end
             endcase
          end
          else begin

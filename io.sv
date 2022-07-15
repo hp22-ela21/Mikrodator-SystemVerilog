@@ -42,7 +42,7 @@ module io
    *                    angiven adress ligger inom intervallet IO_MIN - IO_MAX. Däremot vid
    *                    reset så nollställs hela I/O-minnet.
    ***********************************************************************************************/
-   always @ (posedge clock or negedge reset_s2_n)
+   always_ff @ (posedge clock or negedge reset_s2_n)
    begin: IO_UPDATE_PROCESS
       if (!reset_s2_n) begin
          for (logic[7:0] i = IO_MIN; i <= IO_MAX; ++i) begin

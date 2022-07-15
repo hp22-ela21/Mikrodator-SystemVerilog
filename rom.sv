@@ -108,7 +108,7 @@ module rom
    /***********************************************************************************************
    * ROM_OUTPUT_PROCESS: Läser en instruktion från ROM-minnet ifall angiven adress är korrekt.
    ***********************************************************************************************/
-   always @ (posedge clock or negedge reset_s2_n)
+   always_ff @ (posedge clock or negedge reset_s2_n)
    begin: ROM_OUTPUT_PROCESS
       if (!reset_s2_n) begin
          data_out <= 24'b0;

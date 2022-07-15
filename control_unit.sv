@@ -61,7 +61,7 @@ module control_unit
    *                    eller vid klockpuls på den 50 MHz systemklockan (ifall manuell
    *                    klockstyrning är inaktiverat).
    ***********************************************************************************************/
-   always @ (posedge clock or negedge reset_s2_n)
+   always_ff @ (posedge clock or negedge reset_s2_n)
    begin: RUN_STATE_PROCESS
       if (!reset_s2_n) begin
          run_state <= 1'b0;
@@ -87,7 +87,7 @@ module control_unit
    *                    Vid reset nollställs adressen som programräknaren pekar på för att
    *                    att starta om programmet från början.
    ***********************************************************************************************/
-   always @ (posedge clock or negedge reset_s2_n)
+   always_ff @ (posedge clock or negedge reset_s2_n)
    begin: CPU_STATE_PROCESS
       if (!reset_s2_n) begin
          state <= CPU_STATE_FETCH;

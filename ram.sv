@@ -35,7 +35,7 @@ module ram
    *                    och angiven adress ligger inom intervallet RAM_MIN - RAM_MAX. Däremot vid
    *                    reset så nollställs hela RAM-minnet.
    ***********************************************************************************************/
-   always @ (posedge clock or negedge reset_s2_n)
+   always_ff @ (posedge clock or negedge reset_s2_n)
    begin: RAM_WRITE_PROCESS
       if (!reset_s2_n) begin
          for (logic[7:0] i = RAM_MIN; i <= RAM_MAX; ++i) begin

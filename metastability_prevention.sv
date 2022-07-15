@@ -32,7 +32,7 @@ module metastability_prevention
    *                värdet av insignal reset_n två klockcykler tidigare. Däremot vid reset
    *                nollställs samtliga reset-signaler direkt.
    ***********************************************************************************************/
-   always @ (posedge clock or negedge reset_n)
+   always_ff @ (posedge clock or negedge reset_n)
    begin: RESET_PROCESS
       if (!reset_n) begin
          reset_s1_n <= 1'b0;
@@ -51,7 +51,7 @@ module metastability_prevention
    *              som key_n är ansluten till, vilket genomförs via synkroniserade signaler
    *              key_s2_n samt key_s3_n. Däremot vid reset ettställs samtliga signaler direkt.
    ***********************************************************************************************/
-   always @ (posedge clock or negedge reset_s2_n)
+   always_ff @ (posedge clock or negedge reset_s2_n)
    begin: KEY_PROCESS
       if (!reset_s2_n) begin
          key_s1_n <= 1'b1;
@@ -70,7 +70,7 @@ module metastability_prevention
    *                 värde som insignal switch hade två klockcykler tidigare. Däremot vid reset 
    *                 så nollställs samtliga signaler direkt.
    ***********************************************************************************************/
-   always @ (posedge clock or negedge reset_s2_n)
+   always_ff @ (posedge clock or negedge reset_s2_n)
    begin: SWITCH_PROCESS
       if (!reset_s2_n) begin
          switch_s1 <= 1'b0;
@@ -92,7 +92,7 @@ module metastability_prevention
    *                    Då har fallande flank på tryckknappens insignal ägt rum, vilket indikeras
    *                    genom att signal key_pressed ettställs, annars hålls denna nollställd.
    ***********************************************************************************************/
-   always @ (posedge clock or negedge reset_s2_n)
+   always_ff @ (posedge clock or negedge reset_s2_n)
    begin: KEY_EVENT_PROCESS
       if (!reset_s2_n) begin
          key_pressed <= 1'b0;
