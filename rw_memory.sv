@@ -19,18 +19,18 @@
 typedef struct packed
 {
    logic[7:0] address; /* Lagrar adress som läsning/skrivning skall ske till/från. */
-	logic[7:0] data_in; /* Lagrar data vid skrivning till RW-minnet. */
-	logic write_enable; /* Indikerar ifall skrivning skall ske. */
+   logic[7:0] data_in; /* Lagrar data vid skrivning till RW-minnet. */
+   logic write_enable; /* Indikerar ifall skrivning skall ske. */
 } rw_memory;
 
 /**************************************************************************************************
 * rw_memory_write: Genomför skrivning från ett CPU-register till angivet RW-minne.
 **************************************************************************************************/
 task automatic rw_memory_write(output rw_memory self, input logic[7:0] addr, data_in);
-	self.address <= addr;
-	self.data_in <= data_in;
-	self.write_enable <= 1'b1;
-	return;
+   self.address <= addr;
+   self.data_in <= data_in;
+   self.write_enable <= 1'b1;
+   return;
 endtask
 
 /**************************************************************************************************
@@ -39,10 +39,10 @@ endtask
 *                 till destinationsadressen.
 **************************************************************************************************/
 task automatic rw_memory_read(inout rw_memory self, output logic[7:0] dest, input logic[7:0] addr, data_out);
-	self.address <= addr;
-	self.write_enable <= 1'b0;
-	dest <= data_out;
-	return;
+   self.address <= addr;
+   self.write_enable <= 1'b0;
+   dest <= data_out;
+   return;
 endtask
 
 `endif /* RW_MEMORY_SV_ */

@@ -75,7 +75,7 @@ module display
       
       else begin
          if (enable) begin
-            case (op_code)  			
+            case (op_code)          
                NOP: begin
                   hex5 <= N;
                   hex4 <= O;
@@ -271,27 +271,27 @@ module display
          end
       end
    end 
-	
-	/***********************************************************************************************
+   
+   /***********************************************************************************************
    * DISPLAY_R16: Skriver ut innehållet i CPU-register R16 på 7-segmentsdisplayer hex[1:0]. 
    ***********************************************************************************************/
-	always @ (posedge clock or negedge reset_s2_n)
-	begin: DISPLAY_R16
-	   if (!reset_s2_n) begin
-		   hex1 <= OFF;
-			hex0 <= OFF;
-		end
-		else begin
-		   if (enable) begin
-				hex1 <= get_digit(r16[7:4]);
-			   hex0 <= get_digit(r16[3:0]);
-			end
-			else begin
-			   hex1 <= OFF;
-				hex0 <= OFF;
-			end
-		end
-	end
+   always @ (posedge clock or negedge reset_s2_n)
+   begin: DISPLAY_R16
+      if (!reset_s2_n) begin
+         hex1 <= OFF;
+         hex0 <= OFF;
+      end
+      else begin
+         if (enable) begin
+            hex1 <= get_digit(r16[7:4]);
+            hex0 <= get_digit(r16[3:0]);
+         end
+         else begin
+            hex1 <= OFF;
+            hex0 <= OFF;
+         end
+      end
+   end
    
    /***********************************************************************************************
    * get_digit: Returnerar binärkoden för en hexadecimal siffra 0 - F utefter ingånde argument
