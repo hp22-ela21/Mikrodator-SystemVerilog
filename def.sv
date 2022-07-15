@@ -48,7 +48,7 @@ localparam BRLT = 8'h1C; /* Genomför programhopp om operand 1 är mindre än op
 localparam CALL = 8'h1D; /* Genomför programhopp till subrutin och sparar returadressen på stacken. */
 localparam RET  = 8'h1E; /* Genomför återhopp från subrutin via sparad returadress på stacken. */
 
-/* CPU-register (index till array implementering i styrenheten): */
+/* CPU-register (index till array implementerad i styrenheten): */
 localparam R0  = 8'h00; /* CPU-register R0. */
 localparam R1  = 8'h01; /* CPU-register R1. */
 localparam R2  = 8'h02; /* CPU-register R2. */
