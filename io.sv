@@ -15,7 +15,7 @@
 module io
 (
    input logic clock,          /* 50 MHz systemklocka. */
-   input logic reset_s2_n,     /* Synkroniserad inverterande reset-signal. */
+   input logic reset_s2_n,     /* Synkroniserad inverterad reset-signal. */
    input logic[7:0] address,   /* Adress för läsning/skrivning. */
    input logic[7:0] data_in,   /* Indata för skrivning till I/O-minnet. */
    input logic write_enable,   /* Indikerar ifall skrivning skall genomföras. */

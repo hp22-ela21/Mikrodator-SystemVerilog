@@ -83,7 +83,7 @@ localparam R29 = 8'h1D; /* CPU-register R29. */
 localparam R30 = 8'h1E; /* CPU-register R30. */
 localparam R31 = 8'h1F; /* CPU-register R31. */
 
-/* I/O-register (adresser i RAM-minnet): */
+/* I/O-register (adresser i I/O-minnet): */
 localparam PINB  = 8'h00; /* Register för läsning av insignaler på I/O-port B. */
 localparam PORTB = 8'h01; /* Register för skrivning av utsignaler på I/O-port B. */
 localparam DDRB  = 8'h02; /* Datariktningsregister för I/O-port B). */

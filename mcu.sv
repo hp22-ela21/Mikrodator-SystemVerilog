@@ -17,7 +17,7 @@
 module mcu
 (
    input logic clock,          /* 50 MHz systemklocka. */
-   input logic reset_n,        /* Inverterande reset-signal. */
+   input logic reset_n,        /* Inverterad asynkron reset-signal. */
    input logic key_n,          /* Tryckknapp för generering av klockpulser. */
    input logic switch,         /* Slide-switch för val av klockkälla. */ 
    inout wire[7:0] io_port_b,  /* 8-bitars I/O-port. */
@@ -35,7 +35,7 @@ module mcu
    import def::*;
 
    /* Signaler: */
-   logic reset_s2_n;   /* Synkroniserad inverterande reset-signal. */
+   logic reset_s2_n;   /* Synkroniserad inverterad reset-signal. */
    logic switch_s2;    /* Synkroniserad signal från slide-switch för val av klockkälla. */
    logic key_pressed;  /* Indikerar nedtryckning av tryckknapp för ny klockpuls. */
  

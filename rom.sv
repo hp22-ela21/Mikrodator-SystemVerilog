@@ -14,7 +14,7 @@
 module rom
 (
    input logic clock,          /* 50 MHz systemklocka. */
-   input logic reset_s2_n,     /* Synkroniserad inverterande reset-signal. */
+   input logic reset_s2_n,     /* Synkroniserad inverterad reset-signal. */
    input logic[7:0] address,   /* Adress för läsning. */
    output logic[23:0] data_out /* Utdata för läsning från ROM-minnet. */
 );

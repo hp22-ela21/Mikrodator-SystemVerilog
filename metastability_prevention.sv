@@ -14,10 +14,10 @@
 module metastability_prevention
 (
    input logic clock,        /* 50 MHz systemklocka. */
-   input logic reset_n,      /* Inverterande reset-signal. */
-   input logic key_n,        /* Insignal från inverterande tryckknapp. */
+   input logic reset_n,      /* Inverterad asynkron reset-signal. */
+   input logic key_n,        /* Insignal från inverterad tryckknapp. */
    input logic switch,       /* Insignal från slide-switch. */
-   output logic reset_s2_n,  /* Synkroniserad inverterande reset-signal. */
+   output logic reset_s2_n,  /* Synkroniserad inverterad reset-signal. */
    output logic key_pressed, /* Indikerar nedtryckning av tryckknappen (fallande flank). */
    output logic switch_s2    /* Synkroniserad signal från slide-switch. */
 );
@@ -29,8 +29,8 @@ module metastability_prevention
    
    /***********************************************************************************************
    * RESET_PROCESS: Synkroniserar reset-signalerna, där reset_s2_n i normalfallet tilldelas 
-  *                värdet av insignal reset_n två klockcykler tidigare. Däremot vid reset
-  *                nollställs samtliga reset-signaler direkt.
+   *                värdet av insignal reset_n två klockcykler tidigare. Däremot vid reset
+   *                nollställs samtliga reset-signaler direkt.
    ***********************************************************************************************/
    always @ (posedge clock or negedge reset_n)
    begin: RESET_PROCESS
