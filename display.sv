@@ -280,7 +280,7 @@ module display
    /***********************************************************************************************
    * DISPLAY_R16: Skriver ut innehållet i CPU-register R16 på 7-segmentsdisplayer hex[1:0]. 
    ***********************************************************************************************/
-   always @ (posedge clock or negedge reset_s2_n)
+   always_ff @ (posedge clock or negedge reset_s2_n)
    begin: DISPLAY_R16
       if (!reset_s2_n) begin
          hex1 <= OFF;

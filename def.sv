@@ -47,6 +47,8 @@ localparam BRLE = 8'h1B; /* Genomför programhopp om operand 1 är mindre eller 
 localparam BRLT = 8'h1C; /* Genomför programhopp om operand 1 är mindre än operand 2. */
 localparam CALL = 8'h1D; /* Genomför programhopp till subrutin och sparar returadressen på stacken. */
 localparam RET  = 8'h1E; /* Genomför återhopp från subrutin via sparad returadress på stacken. */
+localparam PUSH = 8'h1F; /* Lägger till data från ett CPU-register till stacken. */
+localparam POP  = 8'h20; /* Tar bort data från stacken och lägger i ett CPU-register. */
 
 /* CPU-register (index till array implementerad i styrenheten): */
 localparam R0  = 8'h00; /* CPU-register R0. */
@@ -95,11 +97,11 @@ localparam PORTD = 8'h07; /* Register för skrivning av utsignaler på I/O-port 
 localparam DDRD  = 8'h08; /* Datariktningsregister för I/O-port D). */
 
 /**************************************************************************************************
-* cpu_state: Enumeration för implementering av de olika tillstånden i CPU:ns instruktionscykel,
-*            där FETCH = hämtar instruktion från programminnet, DECODE = delar upp instruktionen
-*            i OP-kod samt operander och EXECUTE = utför instruktionen.
+* cpu_state_t: Enumeration för implementering av de olika tillstånden i CPU:ns instruktionscykel,
+*              där FETCH = hämtar instruktion från programminnet, DECODE = delar upp instruktionen
+*              i OP-kod samt operander och EXECUTE = utför instruktionen.
 **************************************************************************************************/
-typedef enum { CPU_STATE_FETCH, CPU_STATE_DECODE, CPU_STATE_EXECUTE } cpu_state;
+typedef enum { CPU_STATE_FETCH, CPU_STATE_DECODE, CPU_STATE_EXECUTE } cpu_state_t;
 
 endpackage
 

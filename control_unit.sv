@@ -1,6 +1,6 @@
 /***********************************************************************************************
-* control_unit.sv: Möjliggör implementering av mikrodatorns styrenhet, med inbyggt 
-*                  programminne, RAM-minne samt I/O-minne.
+* control_unit.sv: Möjliggör implementering av mikrodatorns styrenhet, med inbyggt RAM-minne,
+*                  programminne, I/O-minne, stack samt ALU.
 ***********************************************************************************************/
 `ifndef CONTROL_UNIT_SV_
 `define CONTROL_UNIT_SV_
@@ -15,7 +15,7 @@ module control_unit
 (
    input logic clock,                /* 50 MHz systemklocka. */
    input logic reset_s2_n,           /* Synkroniserad inverterad reset-signal. */
-   input logic key_pressed,          /* Manuell klockpuls via tryckknapp. */
+   input logic key_pressed,          /* Tryckknapp för manuell klockpulsgenerering. */
    input logic manual_clock_enabled, /* Synkroniserad signal från slide-switch för val av klockkälla. */
    inout wire[7:0] io_port_b,        /* 8-bitars I/O-port. */
    inout wire[7:0] io_port_c,        /* 8-bitars I/O-port. */
@@ -28,7 +28,7 @@ module control_unit
    /* Inkluderingsdirektiv: */
    import def::*;
    
-   /* Signaler för OP-kod och operander: */
+   /* Signaler för OP-kod samt operander: */
    logic[7:0] op_code;   /* Lagringsregister för aktuell OP-kod. */
    logic[7:0] op1;       /* Lagringsregister för eventuell första operand. */
    logic[7:0] op2;       /* Lagringsregister för eventuell andra operand. */
@@ -37,11 +37,11 @@ module control_unit
    logic[23:0] ir;       /* Instruktionsregister, lagrar aktuell instruktion som skall exekveras. */
    logic[7:0] pc;        /* Programräknaren, lagrar adressen till nästa instruktion som skall hämtas. */
    logic[3:0] sr;        /* Statusregister, lagrar tillståndsbitar NZVC. */
-   logic[7:0] cpu[31:0]; /* Adresser för CPU-register. */
-   stack stk;            /* Stacksegment samt stackpekare. */
+   logic[7:0] cpu[31:0]; /* CPU-register R0 - R31. */
+   stack_t stk;          /* Stacksegment samt stackpekare. */
   
    /* Signaler för tillstånd i CPU:ns instruktionscykel: */
-   cpu_state state;      /* Aktuellt tillstånd i CPU:ns instruktionscykel. */
+   cpu_state_t state;    /* Aktuellt tillstånd i CPU:ns instruktionscykel. */
    logic run_state;      /* Indikerar ifall aktuellt tillstånd skall utföras. */
   
    /* Signaler för jämförelse-operationer: */
@@ -50,8 +50,8 @@ module control_unit
    logic lower;          /* Indikerar ifall operand 1 var mindre än operand 2 vid senaste jämförelse. */
   
    /* Signaler för skrivning/läsning till läs- och skrivbara minnen: */
-   rw_memory ram1;       /* Signaler för skrivning/läsning till RAM-minnet. */
-   rw_memory io1;        /* Signaler för skrivning/läsning till I/O-minnet. */ 
+   rw_memory_t ram1;     /* Signaler för skrivning/läsning till RAM-minnet. */
+   rw_memory_t io1;      /* Signaler för skrivning/läsning till I/O-minnet. */ 
    logic[7:0] ram1_out;  /* Tar emot utdata från RAM-minnet. */
    logic[7:0] io1_out;   /* Tar emot utdata från I/O-minnet. */
 
@@ -153,10 +153,13 @@ module control_unit
                      BRLT: if (lower) pc <= op1;
                      CALL: begin stack_push(stk, pc); pc <= op1; end
                      RET:  stack_pop(stk, pc);
+                     PUSH: stack_push(stk, cpu[op1]);
+                     POP:  stack_pop(stk, cpu[op1]);
                      default: ;                    
                   endcase
                   state <= CPU_STATE_FETCH;
                end
+               default: state <= CPU_STATE_FETCH;
             endcase
          end
       end

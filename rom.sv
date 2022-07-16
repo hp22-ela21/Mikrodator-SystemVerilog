@@ -24,7 +24,7 @@ module rom
    
    /* Konstanter: */
    localparam ROM_MIN = 8'h00; /* Lägsta adress i programminnet. */
-   localparam ROM_MAX = 8'h1A; /* Högsta adress i programminnet */
+   localparam ROM_MAX = 8'h1A; /* Högsta adress i programminnet. */
    localparam LED = 1;         /* PIN-nummer för lysdiod ansluten till PORTB1. */
    localparam BUTTON = 5;      /* PIN-nummer för tryckknapp ansluten till PORTB5. */
      

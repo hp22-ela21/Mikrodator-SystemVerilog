@@ -65,7 +65,7 @@ module io
    *            datariktningsregister eller portregister. Returnerad data skall tilldelas till
    *            motsvarande pinregister. 
    ***********************************************************************************************/
-   function automatic logic[7:0] port_read(logic[7:0] data_in, ddr, port);
+   function automatic logic[7:0] port_read(input logic[7:0] data_in, ddr, port);
       logic[7:0] data_out;
       for (logic[7:0] i = 0; i < 8; ++i) begin
          if (ddr[i] || port[i]) begin
@@ -86,7 +86,7 @@ module io
    *             utsignal, vilket medför att motsvarande port enbart fungerar som inport.
    *             Returnerad data skall tilldelas till motsvarande I/O-port.
    ***********************************************************************************************/
-   function automatic logic[7:0] port_write(logic[7:0] ddr, port);
+   function automatic logic[7:0] port_write(input logic[7:0] ddr, port);
       logic[7:0] data_out;
       for (logic[7:0] i = 0; i < 8; ++i) begin
          if (ddr[i]) begin

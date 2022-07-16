@@ -12,7 +12,7 @@
 *      utefter resultatet innan återhoppet. C-flaggan tilldelas carry-biten genom att tilldela 
 *      den extra minnessiffra som resulterar från operationen. N-flaggan tilldelas teckenbiten
 *      (den mest signifikanta biten MSB från resultatet). Z-flaggan ettställs ifall resultatet 
-*      blev noll, annars nollställs denna. V-flaggan ettställs ifall teckenbiten för båda operander 
+*      blev noll, annars nollställs denna. V-flaggan ettställs om teckenbiten för båda operander 
 *      är samma och resultatets teckenbit är inversen av detta. Exempelvis kan detta ske ifall 
 *      addition av två positiva tal (MSB = 0) medför en negativ summa (MSB = 1). V-flaggan 
 *      indikerar då att overflow har ägt rum, vilket beror på att fler bitar krävs för att 
