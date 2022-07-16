@@ -47,6 +47,7 @@ module display
    localparam E     = 7'b0000110; /* Binärkod för bokstaven E. */   
    localparam F     = 7'b0001110; /* Binärkod för bokstaven F. */ 
    localparam G     = 7'b0000010; /* Binärkod för bokstaven G. */ 
+   localparam H     = 7'b0001001; /* Binärkod för bokstaven H. */
    localparam I     = 7'b1111001; /* Binärkod för bokstaven I. */ 
    localparam J     = 7'b1110001; /* Binärkod för bokstaven J. */ 
    localparam L     = 7'b1000111; /* Binärkod för bokstaven L. */ 
@@ -261,6 +262,18 @@ module display
                   hex4 <= E;
                   hex3 <= T;
                end  
+               
+               PUSH: begin
+                  hex5 <= P;
+                  hex4 <= S;
+                  hex3 <= H;
+               end
+               
+               POP: begin
+                  hex5 <= P;
+                  hex4 <= O;
+                  hex3 <= P;
+               end
                
                default: begin    
                   hex5 <= OFF;
